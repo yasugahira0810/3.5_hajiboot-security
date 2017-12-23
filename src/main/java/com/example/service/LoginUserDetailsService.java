@@ -1,8 +1,14 @@
 package com.example.service;
 
+import com.example.domain.Customer;
 import com.example.domain.User;
 import com.example.repository.UserRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,4 +27,23 @@ public class LoginUserDetailsService implements UserDetailsService {
         }
         return new LoginUserDetails(user);
     }
+    
+    public List<User> findAll() {
+        return userRepository.findAllOrderByName();
+    }
+
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAllOrderByName(pageable);
+    }
+    
+    public User update(User user) {
+        //customer.setUser(user);
+        return userRepository.save(user);
+    }
+    
+    public User create(User user) {
+        //customer.setUser(user);
+        return userRepository.save(user);
+    }
+    
 }

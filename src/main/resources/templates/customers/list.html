@@ -17,6 +17,11 @@
         <span sec:authentication="principal.user.username">duke</span>さんログイン中。
     </p>
     <form th:action="@{/logout}" method="post"><input type="submit" class="btn btn-default btn-xs" value="ログアウト" /></form>
+    <p>担当者編集</p>
+    <form th:action="@{/users}" method="get">
+    		<input class="btn btn-default" type="submit"/>
+    		<!--input type="hidden" name="id" th:value="${user.id}"/-->
+   	</form>
 
     <div class="col-sm-12">
         <form th:action="@{/customers/create}" th:object="${customerForm}" class="form-horizontal" method="post">
