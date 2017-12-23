@@ -47,4 +47,9 @@ public class UserController {
         userService.create(user);
         return "redirect:/users";
     }
+    
+    @GetMapping(params = "goToTop")
+    String goToTop() {
+        return "redirect:/customers";
+    }
 }
