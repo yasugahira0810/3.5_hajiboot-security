@@ -1,6 +1,5 @@
 package com.example.service;
 
-import com.example.domain.Customer;
 import com.example.domain.User;
 import com.example.repository.UserRepository;
 
@@ -36,6 +35,10 @@ public class LoginUserDetailsService implements UserDetailsService {
         return userRepository.findAllOrderByName(pageable);
     }
     
+    public User findOne(String username) {
+        return userRepository.findOne(username);
+    }
+    
     public User update(User user) {
         //customer.setUser(user);
         return userRepository.save(user);
@@ -44,6 +47,10 @@ public class LoginUserDetailsService implements UserDetailsService {
     public User create(User user) {
         //customer.setUser(user);
         return userRepository.save(user);
+    }
+    
+    public void delete(String username) {
+        userRepository.delete(username);
     }
     
 }

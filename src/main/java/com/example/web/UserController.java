@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.domain.User;
 import com.example.service.LoginUserDetails;
@@ -48,8 +49,34 @@ public class UserController {
         return "redirect:/users";
     }
     
+    @GetMapping(path = "edit", params = "form")
+    String editForm(@RequestParam String username, UserForm form) {
+        User user = userService.findOne(username);
+        BeanUtils.copyProperties(user, form);
+        return "users/edit";
+    }
+
+    @PostMapping(path = "edit")
+    String edit(@RequestParam String username, @Validated UserForm form, BindingResult result,
+                @AuthenticationPrincipal LoginUserDetails userDetails) {
+        if (result.hasErrors()) {
+            return editForm(username, form);
+        }
+        User user = new User();
+        BeanUtils.copyProperties(form, user);
+        //user.setId(id);
+        userService.update(user);
+        return "redirect:/users";
+    }
+    
     @GetMapping(params = "goToTop")
     String goToTop() {
         return "redirect:/customers";
+    }
+    
+    @PostMapping(path = "delete")
+    String delete(@RequestParam String username) {
+        userService.delete(username);
+        return "redirect:/users";
     }
 }
