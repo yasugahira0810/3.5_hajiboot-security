@@ -11,6 +11,6 @@ public class UserForm {
     @Size(min = 1, max = 127)
     private String username;
     @NotNull
-    @Size(min = 1, max = 127)
-    private String password;
+    @Size(min = 1, max = 255)
+    private String encodedPassword;
 }
